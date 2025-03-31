@@ -41,23 +41,68 @@ void	index_sort(t_stack **stack_a)
 		i++;
 	}
 }
+// int	sort_checker(t_stack **stack_a)
+// {
+// 	t_stack	*stack_t;
 
-void	sort_three(t_stack **stack_a)
+// 	if (!stack_a || !(*stack_a)->next)
+// 		return (0);
+// 	stack_t = *stack_a;
+// 	while (stack_t->next)
+// 	{
+// 		if (stack_t->data > stack_t->next->data)
+// 			return (0);
+// 		stack_t = stack_t->next;
+// 	}
+// 	return (1);
+// }
+
+
+
+// void	sort_three(t_stack **stack_a)
+// {
+// 	int	index;
+
+// 	if (!(*stack_a))
+// 		return ;
+// 	index = stack_node_ops(stack_a,2);
+// 	while (!sort_checker(stack_a))
+// 	{
+// 		if ((*stack_a)->index == index)
+// 			rot(stack_a, "ra\n",0);
+// 		else
+// 		stack_op(stack_a, stack_a, "sa\n",0);
+// 	}
+// }
+
+int	do_for_three(t_stack **s, int op)
 {
-	int	index;
+	t_stack	*t;
+	int		idx;
 
-	if (!(*stack_a))
-		return ;
-	index = stack_node_ops(stack_a,2);
-	while (!sort_checker(stack_a))
+	if (((op == 0) && (!s || !(*s)->next)) || (op == 1 && !(*s)))
+			return (0);
+	if (op == 0)
 	{
-		if ((*stack_a)->index == index)
-			ra(stack_a, "ra\n");
-		else
-			sa(stack_a, "sa\n");
+		t = *s;
+		while (t->next)
+		{
+			if (t->data > t->next->data)
+				return (0);
+			t = t->next;
+		}
+		return (1);
 	}
+	idx = stack_node_ops(s, 2);
+	while (!do_for_three(s, 0))
+	{
+		if ((*s)->index == idx)
+			rot(s, "ra\n", 0);
+		else
+			stack_op(s, s, "sa\n", 0);
+	}
+	return (1);
 }
-
 
 
 void	sort_med(t_stack **stack_a, t_stack **stack_b)
@@ -79,12 +124,12 @@ void	sort_med(t_stack **stack_a, t_stack **stack_b)
 			stack_t = stack_t->next;
 		}
 		stack_manage(stack_a,1, count);
-		pa(stack_b, stack_a, "pb\n");
+		stack_op(stack_b, stack_a, "pb\n",1);
 		i++;
 	}
-	sort_three(stack_a);
+	do_for_three(stack_a,1);
 	while (stack_node_ops(stack_b,1))
-		pa(stack_a, stack_b, "pa\n");
+	stack_op(stack_a, stack_b, "pa\n",1);
 }
 
 void	radix(t_stack **stack_a, t_stack **stack_b)
@@ -97,21 +142,20 @@ void	radix(t_stack **stack_a, t_stack **stack_b)
 
 	max_bits = stack_node_ops(stack_a,0);
 	size = stack_node_ops(stack_a,1);
-	i = 0;
-	while (i < max_bits)
+	i = -1;
+	while (++i < max_bits)
 	{
-		j = 0;
-		while (j < size)
+		j = -1;
+		while (++j < size)
 		{
 			stack_t = *stack_a;
 			if (((stack_t->index >> i) & 1))
-				ra(stack_a, "ra\n");
+				rot(stack_a, "ra\n",0);
 			else
-				pa(stack_b, stack_a, "pb\n");
-			j++;
+			stack_op(stack_b, stack_a, "pb\n",1);
 		}
 		while (stack_node_ops(stack_b,1))
-			pa(stack_a, stack_b, "pa\n");
-		i++;
+		stack_op(stack_a, stack_b, "pa\n",1);
 	}
 }
+

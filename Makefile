@@ -1,6 +1,6 @@
 
 NAME 				= push_swap
-SRCS 				= create_stack.c instruction.c push_swap.c sort.c stack_checker.c
+SRCS 				= main.c algo1.c algo2.c stack_managing.c
 CFLAGS	 			= -Wall -Werror -Wextra
 OBJS        		= $(SRCS:.c=.o)
 CC = cc
@@ -10,6 +10,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	@rm -f $(OBJS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $<
@@ -25,3 +26,4 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
