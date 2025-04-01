@@ -21,19 +21,34 @@ int	verify_digit(int a, char **v)
 	return (1);
 }
 
-int	is_sort(int a, char **v)
+void	sort_indx(t_stack **st_a, int i1, int len, int value)
 {
-	int	i1;
-	int	c;
-	int	n;
+	t_stack	*cur;
 
-	if (a < 3)
-		return (1);
-	i1 = 1;
-	while (i1 < a - 1 && (c = ft_atoi(v[i1])) <= (n = ft_atoi(v[i1 + 1])))
-		i1++;
-	return (i1 == a - 1);
+	if (!(*st_a))
+		return ;
+	len = stack_node_ops(st_a, 1);
+	while (++i1 < len)
+	{
+		cur = *st_a;
+		while (cur->index != -1)
+			cur = cur->next;
+		value = cur->data;
+		cur = *st_a;
+		while (cur->next)
+		{
+			if (value > cur->next->data && cur->next->index == -1)
+				value = cur->next->data;
+			cur = cur->next;
+		}
+		cur = *st_a;
+		while (cur->data != value)
+			cur = cur->next;
+		cur->index = i1;
+	}
 }
+
+
 
 int	check_dup(int a, char **v)
 {
@@ -61,14 +76,27 @@ int	check_dup(int a, char **v)
 void	sort_stack(t_stack **a, t_stack **b)
 {
 	int	size;
+	int		params[4];
 
 	size = stack_node_ops(a, 1);
+	// 
+	params[3] = 0; 
 	if (size <= 3)
 		do_for_three(a, 1);
 	else if (size <= 50)
-		sort_med(a, b);
+		{
+			params[0] = 0; 
+			params[1] = 0;
+			params[2] =0; 
+			sort_algo_med(a, b, params, 0);
+		}	
 	else
-		radix(a, b);
+		{
+			params[0] = -1; 
+			params[1] = stack_node_ops(a, 0); 
+			params[2] = stack_node_ops(a, 1); 
+			sort_algo_radix(a, b, params, 1);
+		}
 }
 
 int	main(int args, char **argv)
@@ -80,13 +108,14 @@ int	main(int args, char **argv)
 	s2 = NULL;
 	if ((check_dup(args, argv) == 1) || (verify_digit(args, argv) == 0))
 	{
-		ft_putstr_fd("Error\n", 1);
+		is_sort_print(1, NULL, "Error\n", 2);
+		// ft_putstr_fd("Error\n", 1);
 		return (0);
 	}
-	if (is_sort(args, argv) == 1)
+	if (is_sort_print(args, argv, NULL, 1) == 1)
 		return (0);
 	build_list(args, argv, &s1);
-	index_sort(&s1);
+	sort_indx(&s1, -1, 0, 0);
 	sort_stack(&s1, &s2);
 	stack_manage(&s1,0,0);
 	stack_manage(&s2,0,0);

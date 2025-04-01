@@ -1,6 +1,6 @@
 
 NAME 				= push_swap
-SRCS 				= main.c algo1.c algo2.c stack_managing.c
+SRCS 				= main.c algo.c stack_managing.c
 CFLAGS	 			= -Wall -Werror -Wextra
 OBJS        		= $(SRCS:.c=.o)
 CC = cc

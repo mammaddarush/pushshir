@@ -62,15 +62,6 @@ long long	ft_atoi(char *str)
 	return (res1);
 }
 
-void	ft_putstr_fd(char *str1, int fd)
-{
-	while (*str1)
-	{
-		write(fd, str1, 1);
-		str1++;
-	}
-}
-
 
 
 int	stack_node_ops(t_stack **s, int op)
@@ -130,5 +121,33 @@ void	stack_manage(t_stack **s, int op, int idx)
 	}
 }
 
+int	is_sort_print(int a, char **v, char *str1, int op)
+{
+	int	i1;
+	int	c;
+	int	n;
+
+	if (op == 2)
+	{
+			while (*str1)
+			{
+			write(a, str1++, 1);
+			}
+	return (1);
+	}
+	else if (op == 1)
+	{
+		if (a < 3)
+			return (1);
+		i1 = 1;
+		while (i1 < a - 1 && (c = ft_atoi(v[i1])) <= (n = ft_atoi(v[i1 + 1])))
+			i1++;
+		if (i1 == a - 1)
+			return (1);
+		else
+			return (0);
+	}
+	return (0);
+}
 
 
