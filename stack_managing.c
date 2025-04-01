@@ -121,29 +121,96 @@ void	stack_manage(t_stack **s, int op, int idx)
 	}
 }
 
-int	is_sort_print(int a, char **v, char *str1, int op)
-{
-	int	i1;
 
-	if (op == 2)
-			while (*str1)
-				write(a, str1++, 1);
-	else if (op == 1)
-	{
-		if (a < 3)
-			return (1);
-		i1 = 1;
-		while (i1 < a - 1 && )
-		{
-			if (( ft_atoi(v[i1])) <= ( ft_atoi(v[i1 + 1])))
-				i1++;
-		}		
-		if (i1 == a - 1)
-			return (1);
-		else
-			return (0);
-	}
-	return (0);
+int is_sort_print(int a, char **v, char *str1, int op) 
+{
+    int nums[3]; // nums[0] = i1, nums[1] = c, nums[2] = n
+  
+    if (op == 2) 
+    {
+        while (*str1) 
+            write(a, str1++, 1);
+        return (1);
+    } 
+    else if (op == 1)
+    {
+        if (a < 3)
+            return (1);
+        nums[0] = 1;
+        while (nums[0] < a - 1 )
+        {
+            nums[1] = ft_atoi(v[nums[0]]);
+			nums[2] = ft_atoi(v[nums[0] + 1]);
+			if (nums[1] > nums[2])
+				return (0);
+			nums[0]++;
+        }
+        return (1);
+    }
+    return (0);
 }
+
+
+// int is_sort_print(int a, char **v, char *str1, int op) 
+// {
+// 	int i1;
+// 	int c;
+// 	int n;
+  
+// 	if (op == 2) 
+// 	{
+// 	  while (*str1) 
+// 		write(a, str1++, 1);
+// 	  return (1);
+// 	} 
+// 	else if (op == 1)
+// 	 {
+// 	  if (a < 3)
+// 		return (1);
+// 	  i1 = 1;
+// 	  while (i1 < a - 1 && (c = ft_atoi(v[i1])) <= (n = ft_atoi(v[i1 + 1])))
+// 		{
+// 			i1++;
+// 		}
+// 	  if (i1 == a - 1)
+// 		return (1);
+// 	  else
+// 		return (0);
+// 	}
+// 	return (0);
+// }
+
+
+
+
+
+
+// int	is_sort_print(int a, char **v, char *str1, int op)
+// {
+// 	int	i1;
+
+// 	if (op == 2)
+// 			while (*str1)
+// 				write(a, str1++, 1);
+// 	else if (op == 1)
+// 	{
+// 		if (a < 3)
+// 			return (1);
+// 		i1 = 1;
+// 		while (i1 < a - 1 )
+// 		{
+// 			if (( ft_atoi(v[i1])) <= ( ft_atoi(v[i1 + 1])))
+// 				i1++;
+// 		}		
+// 		if (i1 == a - 1)
+// 			return (1);
+// 		else
+// 			return (0);
+// 	}
+// 	return (0);
+// }
+
+
+
 
 
