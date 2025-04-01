@@ -8,8 +8,9 @@ int	verify_digit(int a, char **v)
 	int			j;
 
 	i = 0;
-	while (++i < a && (num1 = ft_atoi(v[i])))
+	while (++i < a  )
 	{
+		num1 = ft_atoi(v[i]);
 		if (num1 > 2147483647 || num1 < -2147483648)
 			return (0);
 		j = (v[i][0] == '-');
