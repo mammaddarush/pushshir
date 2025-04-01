@@ -34,6 +34,36 @@ void	stack_op(t_stack **a, t_stack **b, char *str, int op)
 
 // rot(&a, 0, "ra\n");   // ra(&a, "ra\n")
 // rot(&a, 1, "rra\n");  // rra(&a, "rra\n")
+// void	rot(t_stack **s, char *str, int r)
+// {
+// 	t_stack	*t1;
+// 	t_stack	*t2;
+// 	t_stack	*t3;
+
+// 	if ((r==0 && !s) ||(r==1 && (!*s || !(*s)->next)))
+// 		return ;
+// 	is_sort_print(1, NULL, str, 2);
+// 	t1 = *s;
+// 	if (r==0)
+// 		while (t1->next)
+// 				{
+// 					stack_op(&t1,&t1, "",0);
+// 					t1 = t1->next;
+// 				}					
+// 	else if (r==1)
+// 	{
+// 		while (t1->next )
+// 			{
+// 				t2 = t1;
+// 				t1 = t1->next;
+// 			}
+// 		t3 = t1;
+// 		t3->next = *s;
+// 		*s = t3;
+// 		t2->next = NULL;
+// 	}
+// }
+
 void	rot(t_stack **s, char *str, int r)
 {
 	t_stack	*t1;
@@ -43,24 +73,25 @@ void	rot(t_stack **s, char *str, int r)
 	if ((r==0 && !s) ||(r==1 && (!*s || !(*s)->next)))
 		return ;
 	is_sort_print(1, NULL, str, 2);
-	// ft_putstr_fd(str, 1);
 	t1 = *s;
-	if (r==0)
-		while (t1->next)
-				{
-					stack_op(&t1,&t1, "",0);
-					t1 = t1->next;
-				}					
-	else if (r==1)
+	while (t1->next)
 	{
-		while (t1->next && (t2 = t1))
-			t1 = t1->next;
+		if (r==0)
+			stack_op(&t1,&t1, "",0);
+		else if (r==1)
+			t2 = t1;
+		t1 = t1->next;
+	}
+	if (r==1)
+	{
 		t3 = t1;
 		t3->next = *s;
 		*s = t3;
 		t2->next = NULL;
 	}
 }
+
+
 
 
 int	do_for_three(t_stack **s, int op)
@@ -99,8 +130,9 @@ void	sort_algo_med(t_stack **a, t_stack **b,int params[4], int algo)
 
 	if (!(*a))
 		return ;
-	while ((algo == 0 && stack_node_ops(a, 1) > 3 && (cur = *a)) )
+	while ((algo == 0 && stack_node_ops(a, 1) > 3 ) )
 	{
+		cur = *a;
 		params[3]=0;	
 		while (cur->index != params[0] && ++params[3])
 				cur = cur->next;

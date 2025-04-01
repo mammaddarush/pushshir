@@ -123,7 +123,10 @@ int	main(int args, char **argv)
 }
 
 
-// chmod +x checker_linux && ARG=$(shuf -i 0-10000 -n 500 | tr '\n' ' '); RESULT=$(./push_swap $ARG); echo "$RESULT" | ./checker_linux $ARG && echo "Instruction count: $(echo "$RESULT" | wc -l)"
+//linux: chmod +x checker_linux && ARG=$(shuf -i 0-10000 -n 500 | tr '\n' ' '); RESULT=$(./push_swap $ARG); echo "$RESULT" | ./checker_linux $ARG && echo "Instruction count: $(echo "$RESULT" | wc -l)"
+//Mac: chmod +x checker_Mac && ARG=$(jot -r 500 0 10000 | tr '\n' ' '); RESULT=$(./push_swap $ARG); echo "$RESULT" | ./checker_Mac $ARG && echo "Instruction count: $(echo "$RESULT" | wc -l)"
+
 // for leak check
-// chmod +x checker_linux && ARG=$(shuf -i 0-10000 -n 500 | tr '\n' ' '); RESULT=$(valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./push_swap $ARG); echo "$RESULT" | ./checker_linux $ARG && echo "Instruction count: $(echo "$RESULT" | wc -l)"
+//linux: chmod +x checker_linux && ARG=$(shuf -i 0-10000 -n 500 | tr '\n' ' '); RESULT=$(valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./push_swap $ARG); echo "$RESULT" | ./checker_linux $ARG && echo "Instruction count: $(echo "$RESULT" | wc -l)"
+//Mac: chmod +x checker_Mac && ARG=$(jot -r 500 0 10000 | tr '\n' ' '); RESULT=$(valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./push_swap $ARG); echo "$RESULT" | ./checker_Mac $ARG && echo "Instruction count: $(echo "$RESULT" | wc -l)"
 // Instruction count: 6784
